@@ -31,7 +31,7 @@ PD11(PWM)  Ultrasound1 trig (center)
 //#define UltraTrig1 13
 int PWM_MAX_FB = 150; // PWM for "forward" and "backward" command
 int PWM_MAX_LR = 150; // PWM for "left" and "right" command
-int duration = 2400;
+int duration = 1200;
 int distance = 0;
 char data;
 
@@ -79,37 +79,52 @@ void loop() {
         case '5':
           if(PWM_MAX_FB < 245){
             PWM_MAX_FB = PWM_MAX_FB + 10;
+            Serial.print("Foward-Back speed=");
+            Serial.println(PWM_MAX_FB);
           }
           break;
         case '6':
           if(PWM_MAX_FB > 50){
             PWM_MAX_FB = PWM_MAX_FB - 10;
+            Serial.print("Foward-Back speed=");
+            Serial.println(PWM_MAX_FB);
           }
           break;
         case '7':
           if(PWM_MAX_LR < 245){
             PWM_MAX_LR = PWM_MAX_LR + 10;
+            Serial.print("Left-Right speed=");
+            Serial.println(PWM_MAX_LR);
           }
           break;
         case '8':
           if(PWM_MAX_LR > 50){
             PWM_MAX_LR = PWM_MAX_LR - 10;
+            Serial.print("Left-Right speed=");
+            Serial.println(PWM_MAX_LR);
           }
           break; 
+        /*  
         case '9':
-          //distance = (int)checkUltra1();
+          distance = (int)checkUltra1();
           Serial.print(distance);
           break;
+        */
         case 'a':
           if(duration <= 3000){
-             duration += 500;
+             duration += 300;
+             Serial.print("duration=");
+             Serial.println(duration);
            }
            break;
         case 'b':
           if(duration > 1000){
-            duration -= 500;
+             duration -= 300;
+             Serial.print("duration=");
+             Serial.println(duration);
           }
           break;
+        /*
         case 'c':
           Serial.print(duration);
           break;  
@@ -119,6 +134,7 @@ void loop() {
         case 'e':
           Serial.print(PWM_MAX_LR);
           break;
+        */
         default:
           Serial.println(incomingByte);
           break;
@@ -134,7 +150,7 @@ void backward(){
     analogWrite(IN2, 0);
     analogWrite(IN3, PWM_MAX_FB);
     analogWrite(IN4, 0);
-    delay(duration/2);
+    delay(duration);
     reset();
     delay(100);
 }
@@ -158,7 +174,7 @@ void right(){
     analogWrite(IN2, PWM_MAX_LR);
     analogWrite(IN3, PWM_MAX_LR);
     analogWrite(IN4, 0);
-    delay(1000);
+    delay(1200);
     reset();
     delay(100);
 }
@@ -170,7 +186,7 @@ void left(){
     analogWrite(IN2, 0);
     analogWrite(IN3, 0);
     analogWrite(IN4, PWM_MAX_LR);
-    delay(1000);
+    delay(1200);
     reset();
     delay(100);
 }
