@@ -1,5 +1,5 @@
 # Arduino_SmallCar
-the arduino part of the small car projec
+the arduino part of the small car project
 
 #Include : 
 1.Arduino uno
